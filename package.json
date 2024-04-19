@@ -1,5 +1,5 @@
 {
-  "name": "markdown-wasm",
+  "name": "@enginerd/markdown-wasm",
   "version": "1.2.1",
   "description": "Markdown parser and html generator implemented in WebAssembly",
   "browser": "dist/markdown.js",
