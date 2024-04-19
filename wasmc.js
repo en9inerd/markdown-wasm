@@ -25,7 +25,7 @@ const m = {
   ]),
   lflags: [
     // force inclusion of addFunction & removeFunction in release builds (emcc bug?)
-    "-s","EXPORTED_RUNTIME_METHODS=addFunction,removeFunction",
+    "-s", "EXPORTED_RUNTIME_METHODS=addFunction,removeFunction",
   ],
   constants: {
     VERSION: package.version,
@@ -37,27 +37,30 @@ const m = {
 
 // embedded wasm, ES module, nodejs-specific compression
 // Suitable for using or bundling as a library targeting nodejs only
-module({ ...m,
-  name:    "markdown-node",
-  out:     outdir + "/markdown.node.js",
-  target:  "node",
-  embed:   true,
+module({
+  ...m,
+  name: "markdown-node",
+  out: outdir + "/markdown.node.js",
+  target: "node",
+  embed: true,
 })
 
 if (!debug) {
   // sideloaded wasm, universal js library, exports API at global["markdown"] as a fallback
   // Suitable as a runtime library in browsers
-  module({ ...m,
+  module({
+    ...m,
     name: "markdown",
-    out:  outdir + "/markdown.js",
+    out: outdir + "/markdown.js",
   })
 
   // embedded wasm, ES module
   // Suitable for bundling as a library intended for browsers
-  module({ ...m,
-    name:    "markdown-es",
-    out:     outdir + "/markdown.es.js",
+  module({
+    ...m,
+    name: "markdown-es",
+    out: outdir + "/markdown.es.js",
     outwasm: outdir + "/markdown.wasm",
-    format:  "es",
+    format: "es",
   })
 }

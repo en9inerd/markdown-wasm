@@ -2,8 +2,8 @@
  * parse reads markdown source at s and converts it to HTML.
  * When output is a byte array, it will be a reference.
  */
-export function parse(s :Source, o? :ParseOptions & { bytes? :never|false }) :string
-export function parse(s :Source, o? :ParseOptions & { bytes :true }) :Uint8Array
+export function parse(s: Source, o?: ParseOptions & { bytes?: never | false }): string
+export function parse(s: Source, o?: ParseOptions & { bytes: true }): Uint8Array
 
 /** Markdown source code can be provided as a JavaScript string or UTF8 encoded data */
 type Source = string | ArrayLike<number>
@@ -11,10 +11,13 @@ type Source = string | ArrayLike<number>
 /** Options for the parse function */
 export interface ParseOptions {
   /** Customize parsing. Defaults to ParseFlags.DEFAULT */
-  parseFlags? :ParseFlags
+  parseFlags?: ParseFlags
 
   /** Select output format. Defaults to "html" */
-  format? : "html" | "xhtml"
+  format?: "html" | "xhtml"
+
+  /** Disable anchor tag in headlines. Defaults to `false` */
+  disableHeadlineAnchors?: boolean
 
   /**
    * bytes=true causes parse() to return the result as a Uint8Array instead of a string.
@@ -26,10 +29,10 @@ export interface ParseOptions {
    * This only provides a performance benefit when you never need to convert the output
    * to a string. In most cases you're better off leaving this unset or false.
    */
-  bytes? :boolean
+  bytes?: boolean
 
   /** Allow "javascript:" in links */
-  allowJSURIs? :boolean
+  allowJSURIs?: boolean
 
   /**
    * Optional callback which if provided is called for each code block.
@@ -44,16 +47,16 @@ export interface ParseOptions {
    * Note that use of this callback has an adverse impact on performance as it casues
    * calls and data to be bridged between WASM and JS on every invocation.
    */
-  onCodeBlock? :(langname :string, body :UTF8Bytes) => Uint8Array|string|null|undefined
+  onCodeBlock?: (langname: string, body: UTF8Bytes) => Uint8Array | string | null | undefined
 
   /** @depreceated use "bytes" instead (v1.1.1) */
-  asMemoryView? :boolean
+  asMemoryView?: boolean
 }
 
 /** UTF8Bytes is a Uint8Array representing UTF8 text  */
 export interface UTF8Bytes extends Uint8Array {
   /** toString returns a UTF8 decoded string (lazily decoded and cached) */
-  toString() :string
+  toString(): string
 }
 
 /** Flags that customize Markdown parsing */
@@ -72,6 +75,7 @@ export enum ParseFlags {
   /** Enable task list extension. */                              TASK_LISTS,
   /** Enable wiki links extension. */                             WIKI_LINKS,
   /** Enable underline extension (disables '_' for emphasis) */   UNDERLINE,
+  /** Force all soft breaks to act as hard breaks. */             HARD_SOFT_BREAKS,
 
   /** Default flags are:
    *    COLLAPSE_WHITESPACE |

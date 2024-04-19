@@ -1,16 +1,16 @@
 {
   "name": "markdown-wasm",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Markdown parser and html generator implemented in WebAssembly",
   "browser": "dist/markdown.js",
   "main": "dist/markdown.node.js",
   "jsnext:main": "dist/markdown.es.js",
   "module": "dist/markdown.es.js",
   "typings": "markdown.d.ts",
-  "homepage": "https://github.com/rsms/markdown-wasm",
+  "homepage": "https://github.com/en9inerd/markdown-wasm",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rsms/markdown-wasm.git"
+    "url": "git+https://github.com/en9inerd/markdown-wasm.git"
   },
   "files": [
     "dist/markdown.wasm",
@@ -29,7 +29,6 @@
     "build-debug": "wasmc -g",
     "build-watch": "wasmc -g -w",
     "test": "wasmc -quiet && bash test/test.sh >/dev/null && echo OK",
-    "update-web": "cp dist/markdown.js dist/markdown.wasm docs/",
     "print-gzip-size": "echo 'dist/markdown.{js,wasm} gzipped:' $(gzip -9 -c dist/markdown.js dist/markdown.wasm | wc -c | cat) bytes"
   },
   "author": "Rasmus Andersson <https://rsms.me/>",

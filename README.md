@@ -1,5 +1,7 @@
 # markdown-wasm
 
+> This repo is copy of [markdown-wasm](https://github.com/rsms/markdown-wasm) with some modifications for my personal use
+
 Very fast Markdown parser & HTML renderer implemented in WebAssembly
 
 - Zero dependencies (31 kB gzipped)
@@ -159,6 +161,7 @@ export enum ParseFlags {
   /** Enable task list extension. */                              TASK_LISTS,
   /** Enable wiki links extension. */                             WIKI_LINKS,
   /** Enable underline extension (disables '_' for emphasis) */   UNDERLINE,
+  /** Force all soft breaks to act as hard breaks. */             HARD_SOFT_BREAKS
 
   /** Default flags are:
    *    COLLAPSE_WHITESPACE |

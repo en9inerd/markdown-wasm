@@ -28,6 +28,7 @@ export const ParseFlags = {
   LATEX_MATH_SPANS:            0x1000, // Enable $ and $$ containing LaTeX equations.
   WIKI_LINKS:                  0x2000, // Enable wiki links extension.
   UNDERLINE:                   0x4000, // Enable underline extension (disables '_' for emphasis)
+  HARD_SOFT_BREAKS:            0x8000, // Force all soft breaks to act as hard breaks.
 
   // Github style default flags
   DEFAULT: 0x0001 | 0x0002 | 0x0004 | 0x0200 | 0x0100 | 0x0800,
@@ -43,9 +44,10 @@ export const ParseFlags = {
 
 // these should be in sync with "OutputFlags" in common.h
 const OutputFlags = {
-  HTML:       1 << 0, // Output HTML
-  XHTML:      1 << 1, // Output XHTML (only has effect with HTML flag set)
-  AllowJSURI: 1 << 2, // Allow "javascript:" URIs
+  HTML:                   1 << 0, // Output HTML
+  XHTML:                  1 << 1, // Output XHTML (only has effect with HTML flag set)
+  AllowJSURI:             1 << 2, // Allow "javascript:" URIs
+  DisableHeadlineAnchors: 1 << 3, // Disable anchor tag in headlines.
 }
 
 
@@ -58,6 +60,10 @@ export function parse(source, options) {
   )
 
   let outputFlags = options.allowJSURIs ? OutputFlags.AllowJSURI : 0
+
+  if(options.disableHeadlineAnchors)  {
+    outputFlags |= OutputFlags.DisableHeadlineAnchors;
+  };
 
   switch (options.format) {
     case "xhtml":
