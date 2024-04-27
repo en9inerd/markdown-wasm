@@ -42,7 +42,7 @@ window["markdown"].ready.then(markdown => {
 ## Install
 
 ```
-npm install markdown-wasm
+npm install @enginerd/markdown-wasm
 ```
 
 
